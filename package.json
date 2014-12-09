@@ -1,0 +1,45 @@
+{
+  "name": "depot-cli",
+  "version": "0.0.1",
+  "description": "CLI interface to depot (https://github.com/bosgood/depot) for managing deployed applications and releases",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bosgood/depot-cli.git"
+  },
+  "keywords": [
+    "front-end",
+    "javascript",
+    "applications",
+    "deploy",
+    "cli",
+    "depot"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/bosgood/depot-cli/blob/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "bin": {
+    "depot": "./bin/depot.js"
+  },
+  "author": "Brad Osgood",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bosgood/depot-cli/issues"
+  },
+  "homepage": "https://github.com/bosgood/depot-cli",
+  "dependencies": {
+    "interpret": "^0.3.9",
+    "liftoff": "^0.13.6",
+    "minimist": "^1.1.0",
+    "v8flags": "^1.0.5"
+  }
+}
