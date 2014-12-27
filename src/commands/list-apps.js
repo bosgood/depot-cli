@@ -14,11 +14,11 @@ var ListApps = Command.extend({
             self.logger.info('*', app.applicationId);
           });
         } else {
-          self.logger.info('no apps available');
+          self.logger.info('No apps available yet.');
         }
       })
       .catch(function(err) {
-        self.logger.error('error while fetching apps:');
+        self.logger.error('Error while fetching apps:');
         self.logger.error(err);
         if (err.stack) {
           console.error(err.stack);

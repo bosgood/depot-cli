@@ -16,7 +16,7 @@ var Info = Command.extend({
         }
       })
       .catch(function(err) {
-        self.logger.error('error while fetching app:');
+        self.logger.error('Error while fetching app:');
         if (err.res && err.res.status) {
           self.logger.error('response code: ', err.res.status)
         }
