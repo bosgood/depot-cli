@@ -10,9 +10,8 @@ var ListApps = Command.extend({
       .then(function(res) {
         var apps = res.body;
         if (apps && apps.length) {
-          self.logger.info('apps available:');
           apps.forEach(function(app) {
-            self.logger.info('  - ', app.applicationId + ' | ' + app.createdAt);
+            self.logger.info('* ', app.applicationId);
           });
         } else {
           self.logger.info('no apps available');
@@ -21,6 +20,9 @@ var ListApps = Command.extend({
       .catch(function(err) {
         self.logger.error('error while fetching apps:');
         self.logger.error(err);
+        if (err.stack) {
+          console.error(err.stack);
+        }
       })
     ;
   }
