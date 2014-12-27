@@ -1,3 +1,7 @@
+const Promise = require('bluebird');
+const superagent = require('superagent');
+require('superagent-bluebird-promise');
+
 function Command() {}
 
 Command.prototype.initialize = function(di) {
@@ -7,7 +11,15 @@ Command.prototype.initialize = function(di) {
       this[key] = di[key];
     }
   }
-}
+
+  // Provide libraries as members
+  this.http = superagent;
+  this.Promise = Promise;
+};
+
+Command.prototype.run = function() {
+  throw new Error('command has not been implemented yet.');
+};
 
 Command.extend = function(props) {
   // Extend as a class from Command
