@@ -43,9 +43,10 @@ if (isHelp) {
     process.exit(2);
   }
   console.log(chalk.yellow(subcommandNameParam) + ' - ' + helpCommand.summary);
-  if (helpCommand.parameters && helpCommand.parameters.length) {
-    helpCommand.parameters.forEach(function(param) {
-      console.log('  ' + param.name + ' - ' + param.description);
+  if (helpCommand.params && helpCommand.params.length) {
+    console.log('Parameters:');
+    helpCommand.params.forEach(function(param) {
+      console.log('  * ' + param.name + ' - ' + param.description);
     });
   }
   if (helpCommand.description) {
