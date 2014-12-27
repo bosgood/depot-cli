@@ -11,7 +11,7 @@ var ListApps = Command.extend({
         var apps = res.body;
         if (apps && apps.length) {
           apps.forEach(function(app) {
-            self.logger.info('* ', app.applicationId);
+            self.logger.info('*', app.applicationId);
           });
         } else {
           self.logger.info('no apps available');
