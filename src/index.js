@@ -60,6 +60,9 @@ if (isHelp) {
     process.exit(2);
   }
 
-  var commandObj = runCommand.create(conf, logger);
+  var commandObj = runCommand.create({
+    config: conf,
+    logger: logger
+  });
   commandObj.run();
 }
