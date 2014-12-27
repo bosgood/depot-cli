@@ -37,9 +37,12 @@
   },
   "homepage": "https://github.com/bosgood/depot-cli",
   "dependencies": {
+    "chalk": "^0.5.1",
     "interpret": "^0.3.9",
     "liftoff": "^0.13.6",
     "minimist": "^1.1.0",
-    "v8flags": "^1.0.5"
+    "require-directory": "^2.0.0",
+    "v8flags": "^1.0.5",
+    "winston": "^0.8.3"
   }
 }
