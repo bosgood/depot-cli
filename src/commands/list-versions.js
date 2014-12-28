@@ -4,26 +4,26 @@ var ListVersions = Command.extend({
   run: function() {
     var self = this;
     return self.http
-      .get('http://depot.dev/depot/apps/' + this.params.appId + '/versions')
+      .get('http://depot.dev/depot/apps/' + this.argv.appId + '/versions')
       .type('json')
       .promise()
       .then(function(res) {
         var versions = res.body;
         if (versions && versions.length) {
           versions.forEach(function(version) {
-            self.logger.info('*', version.versionId, '-', version.createdAt);
+            self.log('info', '*', version.versionId, '-', version.createdAt);
           });
         } else {
-          self.logger.info(
-            'No versions of `' + self.params.appId + '` currently available.'
+          self.log('info',
+            'No versions of `' + self.argv.appId + '` currently available.'
           );
         }
       })
       .catch(function(err) {
-        self.logger.error(
-          'Error while fetching versions for `' + self.params.appId + '`:'
+        self.log('error',
+          'Error while fetching versions for `' + self.argv.appId + '`:'
         );
-        self.logger.error(err);
+        self.log('error', err);
         if (err.stack) {
           console.error(err.stack);
         }

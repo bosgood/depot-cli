@@ -64,7 +64,10 @@ if (isHelp) {
   var commandObj = runCommand.create({
     config: conf,
     logger: logger,
-    params: argv
+    argv: argv,
+    params: {
+      verbose: true
+    }
   });
   commandObj.run();
 }

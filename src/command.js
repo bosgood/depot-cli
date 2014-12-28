@@ -17,6 +17,13 @@ Command.prototype.initialize = function(di) {
   this.Promise = Promise;
 };
 
+Command.prototype.log = function(level, message) {
+  if (this.params && this.params.verbose) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    this.logger[level].apply(this.logger, args);
+  }
+};
+
 Command.prototype.run = function() {
   throw new Error('command has not been implemented yet.');
 };

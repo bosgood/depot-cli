@@ -11,15 +11,15 @@ var ListApps = Command.extend({
         var apps = res.body;
         if (apps && apps.length) {
           apps.forEach(function(app) {
-            self.logger.info('*', app.applicationId);
+            self.log('info', '*', app.applicationId);
           });
         } else {
-          self.logger.info('No apps available yet.');
+          self.log('info', 'No apps available yet.');
         }
       })
       .catch(function(err) {
-        self.logger.error('Error while fetching apps:');
-        self.logger.error(err);
+        self.log('error', 'Error while fetching apps:');
+        self.log('error', err);
         if (err.stack) {
           console.error(err.stack);
         }
