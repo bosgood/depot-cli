@@ -23,7 +23,7 @@ function printUsage(message) {
   }
 
   console.log();
-  console.log(conf.APP_NAME + ' help <term>\tsearch for help on <term>')
+  console.log(conf.APP_NAME + ' help <term>\tsearch for help on <term>');
 }
 
 // Display help message when not enough info given
