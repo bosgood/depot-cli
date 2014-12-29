@@ -1,3 +1,5 @@
+const util = require('util');
+
 const chalk = require('chalk');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -46,7 +48,10 @@ if (isHelp) {
   if (helpCommand.params && helpCommand.params.length) {
     console.log('Parameters:');
     helpCommand.params.forEach(function(param) {
-      console.log('  * ' + param.name + ' - ' + param.description);
+      var optionalString = param.optional ? '[optional] ' : '';
+      console.log(util.format(
+        '  * %s%s - %s', optionalString, param.name, param.description
+      ));
     });
   }
   if (helpCommand.description) {
