@@ -5,7 +5,7 @@ const Command = require('../command');
 var DeployVersion = Command.extend({
   run: function() {
     var self = this;
-    this.http
+    return this.http
       .post(
         util.format(
           'http://depot.dev/depot/deploy/%s/%s',

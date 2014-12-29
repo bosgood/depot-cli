@@ -4,7 +4,7 @@ var Info = Command.extend({
   run: function() {
     var self = this;
     return self.http
-      .get('http://depot.dev/depot/apps/' + this.argv.appId)
+      .get('http://depot.dev/depot/apps/' + self.argv.appId)
       .type('json')
       .promise()
       .then(function(res) {

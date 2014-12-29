@@ -7,7 +7,7 @@ var Status = Command.extend({
   run: function() {
     var self = this;
     var listApps = this.createSubcommand(ListApps);
-    listApps.run()
+    return listApps.run()
       .then(function(apps) {
         self.log('info', 'depot server online:');
         self.log('info', util.format('%d apps available.', apps.length));

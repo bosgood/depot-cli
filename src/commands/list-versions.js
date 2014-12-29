@@ -9,7 +9,7 @@ var ListVersions = Command.extend({
     var self = this;
     return self.http
       .get(
-        util.format('http://depot.dev/depot/apps/%s/versions', this.argv.appId)
+        util.format('http://depot.dev/depot/apps/%s/versions', self.argv.appId)
       )
       .type('json')
       .promise()
