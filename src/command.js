@@ -4,23 +4,44 @@ require('superagent-bluebird-promise');
 
 function Command() {}
 
-Command.prototype.initialize = function(di) {
+Command.prototype.initialize = function(dependencies) {
   // Inject all properties from constructor param into instance
-  for (var key in di) {
-    if (di.hasOwnProperty(key)) {
-      this[key] = di[key];
+  var mainDependencies = {};
+  for (var key in dependencies) {
+    if (dependencies.hasOwnProperty(key)) {
+      this[key] = dependencies[key];
+      // Omitting per-command parameters
+      if (key !== 'params') {
+        mainDependencies[key] = dependencies[key];
+      }
     }
   }
 
   // Provide libraries as members
   this.http = superagent;
   this.Promise = Promise;
+
+  // Archive to allow command to pass on injected dependencies
+  // to another command
+  this.dependencies = mainDependencies;
 };
 
 Command.prototype.log = function(level, message) {
   if (this.params && this.params.verbose) {
     this.logger.log.apply(this.logger, arguments);
   }
+};
+
+Command.prototype.createSubcommand = function(CommandClass, params) {
+  if (!params) {
+    params = {};
+  }
+  for (var key in this.dependencies) {
+    if (this.dependencies.hasOwnProperty(key)) {
+      params[key] = this.dependencies[key];
+    }
+  }
+  return CommandClass.create(params);
 };
 
 Command.prototype.run = function() {

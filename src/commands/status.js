@@ -6,7 +6,7 @@ const ListApps = require('./list-apps');
 var Status = Command.extend({
   run: function() {
     var self = this;
-    var listApps = ListApps.create();
+    var listApps = this.createSubcommand(ListApps);
     listApps.run()
       .then(function(apps) {
         self.log('info', 'depot server online:');
