@@ -1,5 +1,7 @@
 const util = require('util');
 
+const chalk = require('chalk');
+
 const Command = require('../command');
 
 var ListVersions = Command.extend({
@@ -15,10 +17,13 @@ var ListVersions = Command.extend({
         var versions = res.body;
         if (versions && versions.length) {
           versions.forEach(function(version) {
-            self.log(
-              'info',
-              util.format('* %s - %s', version.versionId, version.createdAt)
-            );
+            var versionString = util.format('* %s - %s', version.versionId, version.createdAt)
+            if (version.isLatest) {
+              versionString = chalk.yellow(
+                util.format('%s (latest)', versionString)
+              );
+            }
+            self.log('info', versionString);
           });
         } else {
           self.log(
