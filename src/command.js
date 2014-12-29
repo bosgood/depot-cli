@@ -48,6 +48,21 @@ Command.prototype.run = function() {
   throw new Error('command has not been implemented yet.');
 };
 
+Command.validate = function(commandPackage, argv) {
+  var validationResponse = {
+    missingParameters: []
+  };
+  if (commandPackage.params) {
+    commandPackage.params.forEach(function(param) {
+      if (!param.optional && !argv[param.name]) {
+        validationResponse.message = 'missing required param(s)';
+        validationResponse.missingParameters.push(param.name);
+      }
+    });
+  }
+  return validationResponse;
+};
+
 Command.extend = function(props) {
   // Extend as a class from Command
   var CommandClass = function(di) {

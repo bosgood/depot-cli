@@ -3,6 +3,8 @@ const util = require('util');
 const chalk = require('chalk');
 const argv = require('minimist')(process.argv.slice(2));
 
+const Command = require('./command');
+
 var conf = {};
 conf.APP_NAME = 'depot';
 
@@ -28,6 +30,22 @@ function printUsage(message) {
   console.log(conf.APP_NAME + ' help <term>\tsearch for help on <term>');
 }
 
+function printCommandHelp(commandName, command) {
+  console.log(chalk.yellow(commandName) + ' - ' + command.summary);
+  if (command.params && command.params.length) {
+    console.log('Parameters:');
+    command.params.forEach(function(param) {
+      var optionalString = param.optional ? '[optional] ' : '';
+      console.log(util.format(
+        '  * %s%s - %s', optionalString, param.name, param.description
+      ));
+    });
+  }
+  if (command.description) {
+    console.log(command.description);
+  }
+}
+
 // Display help message when not enough info given
 var commandNameParam = argv._[0];
 var isHelp = commandNameParam === 'help';
@@ -44,19 +62,7 @@ if (isHelp) {
     printUsage('command not found: ' + subcommandNameParam);
     process.exit(2);
   }
-  console.log(chalk.yellow(subcommandNameParam) + ' - ' + helpCommand.summary);
-  if (helpCommand.params && helpCommand.params.length) {
-    console.log('Parameters:');
-    helpCommand.params.forEach(function(param) {
-      var optionalString = param.optional ? '[optional] ' : '';
-      console.log(util.format(
-        '  * %s%s - %s', optionalString, param.name, param.description
-      ));
-    });
-  }
-  if (helpCommand.description) {
-    console.log(helpCommand.description);
-  }
+  printCommandHelp(subcommandNameParam, helpCommand);
 // Normal command given
 } else {
   // Invalid command given
@@ -74,5 +80,15 @@ if (isHelp) {
       verbose: true
     }
   });
+  var commandValidation = Command.validate(runCommand, argv);
+  if (commandValidation.message) {
+    console.log(util.format('%s: %s', conf.APP_NAME, chalk.red(commandValidation.message)));
+    commandValidation.missingParameters.forEach(function(param) {
+      console.log(util.format(' * %s', param));
+    });
+    console.log();
+    printCommandHelp(commandNameParam, runCommand);
+    process.exit(3);
+  }
   commandObj.run();
 }
