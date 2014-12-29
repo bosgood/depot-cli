@@ -16,6 +16,7 @@ var ListApps = Command.extend({
         } else {
           self.log('info', 'No apps available yet.');
         }
+        return apps;
       })
       .catch(function(err) {
         self.log('error', 'Error while fetching apps:');

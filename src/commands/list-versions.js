@@ -18,6 +18,7 @@ var ListVersions = Command.extend({
             'No versions of `' + self.argv.appId + '` currently available.'
           );
         }
+        return versions;
       })
       .catch(function(err) {
         self.log('error',
